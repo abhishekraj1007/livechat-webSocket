@@ -7,7 +7,7 @@ services:
       ports:
         - "8080:8080"
       volumes:
-        - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+        - ./haproxy:/usr/local/etc/haproxy
     
     ws1:
       image: livechatapp
