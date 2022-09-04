@@ -1,0 +1,31 @@
+version: '3.9'
+
+
+services:
+    lb:
+      image: 'haproxy:2.5.8-alpine'
+      ports:
+        - "8080:8080"
+      volumes:
+        - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    
+    ws1:
+      image: livechatapp
+      environment:
+        - APP_ID=1111
+    ws2:
+      image: livechatapp
+      environment:
+        - APP_ID=2222
+    ws3:
+      image: livechatapp
+      environment:
+        - APP_ID=3333
+    ws4:
+      image: livechatapp
+      environment:
+        - APP_ID=4444
+
+    rds:
+      image: "redis:7.0.4-alpine"
+

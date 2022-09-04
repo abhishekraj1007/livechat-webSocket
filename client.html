@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>websocket clint</title>
+  </head>
+  <body>
+    <form>
+      <label for="message">Message: </label><br />
+      <input type="text" id="message" name="message" /><br />
+      <button type="submit" id="sendButton">Send</button>
+    </form>
+
+    <div id="output"></div>
+    <script type="text/javascript">
+      window.onload = function () {
+        const socket = new WebSocket("ws://localhost:8080");
+        socket.onopen = () => socket.send("Cleint connected");
+
+        const sendButton = document.getElementById("sendButton");
+        const message = document.getElementById("message");
+
+        sendButton.onclick = (event) => {
+          event.preventDefault();
+          socket.send(message.value);
+        };
+
+        socket.onmessage = (event) => {
+          const output = document.getElementById("output");
+          output.innerHTML += `<div> ${event.data} </div>`;
+        };
+
+        socket.onclose = () => console.log(`PEER DISCONNECTED..`);
+      };
+    </script>
+  </body>
+</html>
